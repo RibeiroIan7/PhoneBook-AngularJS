@@ -15,19 +15,24 @@
                 <tr>
                     <th>Nome</th>
                     <th>Telefone</th>
+                    <th>Operadora</th>
                 </tr>        
                 <tr ng-repeat="contato in contatos">
-                    <td ng-repeat="(key, value) in contato">
+                    <!--<td ng-repeat="(key, value) in contato">
                         {{value}}
-                    </td>
-                    <!--<td>{{contato.nome}}</td>
-                    <td>{{contato.telefone}}</td>-->
+                    </td>-->
+                    <td>{{contato.nome}}</td>
+                    <td>{{contato.telefone}}</td>
+                    <td>{{contato.operadora.nome}}</td>
                 </tr>
             </table>
             <hr>
             <input type="text" class="form-control" placeholder="Nome" ng-model="contato.nome">
             <input type="text" class="form-control" placeholder="Telefone" ng-model="contato.telefone" maxlength="9">
-            <button class="btn btn-primary" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+            <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+                <option value="" disabled>Selecione uma operadora</option>
+            </select>
+            <button class="btn btn-primary" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
         </div>
     </body>
     <script src="app/listaTelefonicaCtrl.js"></script>
