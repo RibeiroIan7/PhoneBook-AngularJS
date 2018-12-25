@@ -11,19 +11,24 @@
         <div class="jumbotron">
            <!-- <h4 ng-bind="app"></h4>-->
             <h3><b>{{app}}</b></h3>
-            <table class="table table-striped">
+            <!--ngIf manipula diretamente o dom removendo e inserindo elemento, diferente do ngShow e ngHide-->
+            <table ng-show="contatos.length > 0" class="table">
                 <tr>
+                    <th></th>
                     <th>Nome</th>
                     <th>Telefone</th>
                     <th>Operadora</th>
+                    <th></th>
                 </tr>        
-                <tr ng-repeat="contato in contatos">
+                <tr ng-repeat="contato in contatos" ng-class="{' selecionado negrito': contato.selecionado}">
                     <!--<td ng-repeat="(key, value) in contato">
                         {{value}}
                     </td>-->
+                    <td><input type="checkbox" ng-model="contato.selecionado"></td>
                     <td>{{contato.nome}}</td>
                     <td>{{contato.telefone}}</td>
                     <td>{{contato.operadora.nome}}</td>
+                    <td><div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div></td>
                 </tr>
             </table>
             <hr>
@@ -33,7 +38,9 @@
                 <option value="" disabled>Selecione uma operadora</option>
             </select>
             <button class="btn btn-primary" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+            <button class="btn btn-danger" ng-click="apagarContato(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar Contatos</button>
         </div>
+        <div ng-include="'footer.html'"></div>
     </body>
     <script src="app/listaTelefonicaCtrl.js"></script>
 </html>

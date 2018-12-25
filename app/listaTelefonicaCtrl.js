@@ -3,11 +3,11 @@ angular.module("listaTelefonica", []);
 angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
     $scope.app = "Lista Telefônica";
     $scope.contatos = [
-        {nome: "Ian", telefone: "991836108"},
-        {nome: "Maria", telefone: "997108987"},
-        {nome: "Carlos", telefone: "985263417"},
-        {nome: "José", telefone: "987253615"},
-        {nome: "Ana Clara", telefone: "997361525"}
+        {nome: "Ian", telefone: "991836108", cor: "blue"},
+        {nome: "Maria", telefone: "997108987", cor: "green"},
+        {nome: "Carlos", telefone: "985263417", cor: "red"},
+        {nome: "José", telefone: "987253615", cor: "black"},
+        {nome: "Ana Clara", telefone: "997361525", cor: "yellow"}
     ];
 
     $scope.operadoras = [
@@ -25,4 +25,20 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
         $scope.contatos.push(angular.copy(contato));
         delete $scope.contato;
     };
+
+    $scope.apagarContato = function(contatos){
+        $scope.contatos = contatos.filter(function(contato){
+            if(!contato.selecionado)
+                return contato;
+        });
+        //console.log(contatosSelecionados);
+    };
+
+    $scope.isContatoSelecionado = function(contatos){
+        return contatos.some(function(contato){
+            return contato.selecionado;
+        });
+    };
+    //$scope.classe1 = "selecionado";
+    //$scope.classe2 = "negrito";
 });
