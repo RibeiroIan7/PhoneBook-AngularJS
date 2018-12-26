@@ -1,4 +1,4 @@
-angular.module("listaTelefonica", []);
+angular.module("listaTelefonica", ["ngMessages"]);
 
 angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
     $scope.app = "Lista Telefônica";
@@ -24,6 +24,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
         //e tentar ao máximo definir abstração de entidade
         $scope.contatos.push(angular.copy(contato));
         delete $scope.contato;
+        $scope.contatoForm.$setPristine();
     };
 
     $scope.apagarContato = function(contatos){
