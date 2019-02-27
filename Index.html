@@ -14,22 +14,25 @@
            <!-- <h4 ng-bind="app"></h4>-->
             <h3><b>{{app}}</b></h3>
             <!--ngIf manipula diretamente o dom removendo e inserindo elemento, diferente do ngShow e ngHide-->
+            <input type="text" ng-model="filtroDeBusca" class="form-control" placeholder="O que você está buscando?" />
             <table ng-show="contatos.length > 0" class="table">
                 <tr>
                     <th><span class="glyphicon glyphicon-trash"></span></th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Operadora</th>
+                    <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+                    <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
+                    <th><a href="" ng-click="ordenarPor('operadora')">Operadora</a></th>
+                    <th><a href="" ng-click="ordenarPor('data')">Data</a></th>
                     <th></th>
                 </tr>        
-                <tr ng-repeat="contato in contatos" ng-class="{' selecionado negrito': contato.selecionado}">
+                <tr ng-repeat="contato in contatos | filter:{nome: filtroDeBusca} | orderBy:criterioDeOrdenacao:direcaoOredernacao | limitTo:3" ng-class="{' selecionado negrito': contato.selecionado}">
                     <!--<td ng-repeat="(key, value) in contato">
                         {{value}}
                     </td>-->
                     <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                    <td>{{contato.nome}}</td>
+                    <td>{{contato.nome | uppercase}}</td>
                     <td>{{contato.telefone}}</td>
-                    <td>{{contato.operadora.nome}}</td>
+                    <td>{{contato.operadora.nome | lowercase}}</td>
+                    <td>{{contato.data | date: 'MMM EEE dd/MM/yyyy HH:mm'}}</td> <!--FILTER DATE-->
                     <td><div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div></td>
                 </tr>
             </table>
@@ -38,7 +41,7 @@
                 <input type="text" class="form-control" placeholder="Nome" ng-model="contato.nome" name="nome" ng-required="true">
                 <!--ng-pattern="/^\d{4-5}-\d{4}$/"-->
                 <input type="number" class="form-control" placeholder="Telefone" ng-model="contato.telefone" name="telefone" maxlength="11" ng-minlength="9" ng-required="true">
-                <select class="form-control" ng-model="contato.operadora" name="operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras" ng-required="true">
+                <select class="form-control" ng-model="contato.operadora" name="operadora" ng-options="operadora.nome + ' ('+(operadora.preco | currency)+')' group by operadora.categoria for operadora in operadoras | orderBy:'nome'" ng-required="true">
                     <option value="" disabled>Selecione uma operadora</option>
                 </select>
             </form>
