@@ -1,6 +1,4 @@
-angular.module("listaTelefonica", ["ngMessages"]);
-
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $http){
     $scope.app = "Lista Telefônica";
     $scope.contatos = [
         {nome: "Ian", telefone: "991836108", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}, cor: "blue"},
@@ -9,6 +7,12 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
         {nome: "José", telefone: "987253615", data: new Date(), operadora: {nome: "Claro", codigo: 21, categoria: "Celular"}, cor: "black"},
         {nome: "Ana Clara", telefone: "997361525", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}, cor: "yellow"}
     ];
+
+    /*var carregarContatos = function(){
+        $http.get("").success(function(data, status){
+            $scope.contatos = data;
+        });
+    };*/
 
     $scope.operadoras = [
         {nome: "Claro", codigo: 21, categoria: "Celular", preco: 2},
